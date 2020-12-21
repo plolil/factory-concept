@@ -1,0 +1,7 @@
+int tick() {
+
+}
+
+int main() {
+  
+}
