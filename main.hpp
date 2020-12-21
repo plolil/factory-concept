@@ -9,11 +9,7 @@
 #include <SDL2/SDL_thread.h>
 #include <SDL2/SDL_image.h>
 
-#include <stdio.h>
-
-typedef unsigned int bool;
-
-#define true 1
-#define false 0
+#include <iostream>
+#include <string>
 
 #endif
