@@ -1,2 +1,4 @@
 # factory-concept
-code sharing for a factory-building concept
+A game.
+## The idea
+Factorio but inside the machines is opus magnum.
