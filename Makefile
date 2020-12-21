@@ -26,7 +26,7 @@ LFLAGS = -L/home/newhall/lib  -L../lib
 LIBS = -lSDL2 -lSDL2main -lm -lSDL2_ttf
 
 # define the C source files
-SRCS = main.c
+SRCS = $(addsuffix source/, main.c)
 
 # define the C object files 
 #
@@ -36,7 +36,7 @@ SRCS = main.c
 # Below we are replacing the suffix .c of all words in the macro SRCS
 # with the .o suffix
 #
-OBJS = $(SRCS:.c=.o)
+OBJS = $(subst source/,obj/,$(SRCS:.c=.o))
 
 # define the executable file 
 MAIN = Factory
