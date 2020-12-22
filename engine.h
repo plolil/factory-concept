@@ -17,8 +17,7 @@ typedef struct engine {
 	//hold threads. each runs tasks. this is mainly for long running (blocking) operations, but im gonna make everything do it.
 	SDL_Thread * Athread;
 	SDL_Thread * Bthread;
-	SDL_Thread * Cthread;
-	//a taskstore for anything to be run. see "tasks.h" for more.
+	//a taskstore for anything non-critical to be run. see "tasks.h" for more.
 	TASKS_taskstore queue;
 } ENGINE_engine;
 

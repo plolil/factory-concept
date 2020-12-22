@@ -1,6 +1,7 @@
 CC=gcc
 CFLAGS=-Wall -g -lSDL2 -lSDL2main -lm -lSDL2_ttf
-SRC=main.c
+SRC=main.c\
+    tasks.c
 OBJ=$(SRC:.c=.o)
 
 %.o: %.c $(DEPS)
