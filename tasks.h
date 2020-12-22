@@ -35,7 +35,7 @@ typedef struct taskstore {
 	//keep track of how many tasks there are. this will block if it gets filled.
 	int numtasks;
 	//used for timing. will not increment until all tasks for this tick are finished.
-	int tick;
+	unsigned long tick;
 	//used to handle atomic operations
 	SDL_bool safe;
 } TASKS_taskstore;
@@ -43,7 +43,7 @@ typedef struct taskstore {
 //function to generate and allocate a new taskstore
 TASKS_taskstore *TASKS_newstore();
 //function to add a task
-int TASKS_pushtask(TASKS_taskstore* store, int * func, void * target, int * paramA, int * paramB);
+int TASKS_pushtask(TASKS_taskstore* store, int * func, void * target, int * paramA, int * paramB, int delay);
 //function to complete and remove a task
 int TASKS_poptask();
 
