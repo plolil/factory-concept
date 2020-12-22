@@ -9,9 +9,8 @@
 #include <SDL2/SDL_thread.h>
 #include <SDL2/SDL_image.h>
 
-#include <iostream>
-#include <string>
+#include <stdio.h>
 
-#include "engine.hpp"
+#include "engine.h"
 
 #endif

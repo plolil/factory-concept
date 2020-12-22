@@ -1,4 +1,4 @@
-CC=g++
+CC=gcc
 CFLAGS=-Wall -g -lSDL2 -lSDL2main -lm -lSDL2_ttf
 SRC=main.c
 OBJ=$(SRC:.c=.o)

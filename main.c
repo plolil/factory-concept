@@ -1,9 +1,8 @@
-#include "main.hpp"
-#include <string>
+#include "main.h"
 
 int main(int argc, char ** argv)
 {
-	bool quit = false;
+	SDL_bool quit = SDL_FALSE;
 	SDL_Event event;
 
 	SDL_Init(SDL_INIT_VIDEO); TTF_Init();
@@ -28,7 +27,6 @@ int main(int argc, char ** argv)
 			end = SDL_GetTicks() + timeperframe;
 		}
 	} */
-	engine::allocator<std::string> testalloc;
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(screen);
 	TTF_CloseFont(font);
