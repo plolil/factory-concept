@@ -1,4 +1,5 @@
 #include "main.hpp"
+#include <string>
 
 int main(int argc, char ** argv)
 {
@@ -14,7 +15,7 @@ int main(int argc, char ** argv)
 	Uint32 end = SDL_GetTicks();
 	Uint32 fps = 1;
 	Uint32 timeperframe = 1000 / fps;
-	while (!quit){
+/* 	while (!quit){
 		while (SDL_PollEvent(&event)) {
 			switch (event.type){
 				case SDL_QUIT:
@@ -26,7 +27,8 @@ int main(int argc, char ** argv)
 			SDL_RenderClear(renderer);
 			end = SDL_GetTicks() + timeperframe;
 		}
-	}
+	} */
+	engine::allocator<std::string> testalloc;
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(screen);
 	TTF_CloseFont(font);
