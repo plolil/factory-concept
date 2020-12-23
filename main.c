@@ -1,7 +1,9 @@
 #include "main.h"
 
+//a test function, used as a task.
+//all tasks must be declared in this format, with the same parameters and type. name is irrelevant tho.
 int hello(void*a, void*b, void*c) {
-	printf("Hello, World!");
+	printf("Hello, World!\n");
 	return 0;
 }
 
@@ -26,6 +28,7 @@ int main(int argc, char ** argv) {
 	Uint32 end = SDL_GetTicks();
 	Uint32 fps = 1;
 	Uint32 timeperframe = 1000 / fps;
+	//create a new taskstore
 	TASKS_taskstore *test = TASKS_newstore();
  	while (!quit){
 		//event handling. its in a while loop so that all present events get handled.
@@ -35,8 +38,9 @@ int main(int argc, char ** argv) {
 				case SDL_QUIT:
 					quit = SDL_TRUE;
 					break;
+				//when a key is pressed, schedule a task for 2 seconds(60 ticks) in the future on taskstore 'test'. make the task be the function from above.
 				case SDL_KEYDOWN:
-					TASKS_pushtask(test, hello, NULL, NULL, NULL, 0);
+					TASKS_pushtask(test, hello, NULL, NULL, NULL, 60);
 					break;
 			}
 		}
@@ -46,6 +50,7 @@ int main(int argc, char ** argv) {
 			end = SDL_GetTicks() + timeperframe;
 		}
 	}
+	//kill the threads and unallocate the taskstore
 	TASKS_killstore(test);
 	//unload everything
 	SDL_DestroyRenderer(renderer);

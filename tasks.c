@@ -10,7 +10,7 @@ int facilitate(void* in) {
 			printf("waiting\n");
 			SDL_Delay(1);
 		}
-		printf("tick!\n");
+		//printf("tick!\n");
 		store->safe = SDL_FALSE;
 		store->tick += 1;
 		store->numtasks = 0;
@@ -98,9 +98,9 @@ int TASKS_poptask(TASKS_taskstore* store) {
 
 int TASKS_killstore(TASKS_taskstore* store) {
 	store->exit = SDL_TRUE;
-	SDL_DetachThread(store->Athread);
-	SDL_DetachThread(store->Bthread);
-	SDL_DetachThread(store->Facilitator);
+	SDL_WaitThread(store->Athread, NULL);
+	SDL_WaitThread(store->Bthread, NULL);
+	SDL_WaitThread(store->Facilitator, NULL);
 	SDL_free(store);
 	return 0;
 }
