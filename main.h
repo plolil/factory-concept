@@ -1,7 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 //SDL normally redirects all stdout writes to a file. this makes debugging a pain. disable this on finished builds because windows is wierd.
-#define NO_STDIO_REDIRECT
+//#define NO_STDIO_REDIRECT
 
 //include SDL2 headers
 #include <SDL2/SDL.h>

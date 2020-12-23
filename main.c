@@ -1,5 +1,10 @@
 #include "main.h"
 
+int hello(void*a, void*b, void*c) {
+	printf("Hello, World!");
+	return 0;
+}
+
 //take CLI flags.
 int main(int argc, char ** argv) {
 	//store whether we should exit
@@ -21,6 +26,7 @@ int main(int argc, char ** argv) {
 	Uint32 end = SDL_GetTicks();
 	Uint32 fps = 1;
 	Uint32 timeperframe = 1000 / fps;
+	TASKS_taskstore *test = TASKS_newstore();
  	while (!quit){
 		//event handling. its in a while loop so that all present events get handled.
 		while (SDL_PollEvent(&event)) {
@@ -28,6 +34,10 @@ int main(int argc, char ** argv) {
 				//quit when the window is closed
 				case SDL_QUIT:
 					quit = SDL_TRUE;
+					break;
+				case SDL_KEYDOWN:
+					TASKS_pushtask(test, hello, NULL, NULL, NULL, 0);
+					printf("test");
 					break;
 			}
 		}
@@ -37,6 +47,7 @@ int main(int argc, char ** argv) {
 			end = SDL_GetTicks() + timeperframe;
 		}
 	}
+	TASKS_killstore(test);
 	//unload everything
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(screen);

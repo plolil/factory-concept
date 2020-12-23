@@ -11,7 +11,7 @@ int facilitate(void* in) {
 		store->safe = SDL_FALSE;
 		store->tick += 1;
 		store->numtasks = 0;
-		for (int i = 0; i > TASKLIMIT; i++) {
+		for (int i = 0; i < TASKLIMIT; i++) {
 			if (store->tasklist[i].tick <= store->tick) {
 				store->numtasks += 1;
 			}
@@ -46,6 +46,7 @@ TASKS_taskstore *TASKS_newstore() {
 int TASKS_pushtask(TASKS_taskstore* store, TASKS_taskfunc func, void * target, void * paramA, void * paramB, int delay) {
 	SDL_bool pushed = SDL_FALSE;
 	for(int i = 0; i < TASKLIMIT; i++) {
+		printf("%d\n", i);
 		if (!store->tasklist[i].valid) {
 			pushed = SDL_TRUE;
 			store->tasklist[i].funcptr = func;
@@ -55,6 +56,7 @@ int TASKS_pushtask(TASKS_taskstore* store, TASKS_taskfunc func, void * target, v
 			store->tasklist[i].id = i;
 			store->tasklist[i].tick = store->tick + delay;
 			store->tasklist[i].valid = SDL_TRUE;
+			break;
 		}
 	}
 	if (delay == 0) {
@@ -82,11 +84,11 @@ int TASKS_poptask(TASKS_taskstore* store) {
 	return 0;
 }
 
-int TASKS_kilstore(TASKS_taskstore* store) {
+int TASKS_killstore(TASKS_taskstore* store) {
 	store->exit = SDL_TRUE;
-	SDL_WaitThread(store->Athread, NULL);
-	SDL_WaitThread(store->Bthread, NULL);
-	SDL_WaitThread(store->Facilitator, NULL);
+	SDL_DetachThread(store->Athread);
+	SDL_DetachThread(store->Bthread);
+	SDL_DetachThread(store->Facilitator);
 	SDL_free(store);
 	return 0;
 }
