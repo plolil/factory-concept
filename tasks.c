@@ -73,11 +73,20 @@ int TASKS_poptask(TASKS_taskstore* store) {
 					store->tasklist[i].valid = SDL_FALSE;
 					store->numtasks -= 1;
 				}
-				if (!store->safe) {
+				if (!store->safe || store->exit) {
 					break;
 				}
 			}
 		}
 	}
+	return 0;
+}
+
+int TASKS_kilstore(TASKS_taskstore* store) {
+	store->exit = SDL_TRUE;
+	SDL_WaitThread(store->Athread, NULL);
+	SDL_WaitThread(store->Bthread, NULL);
+	SDL_WaitThread(store->Facilitator, NULL);
+	SDL_free(store);
 	return 0;
 }
