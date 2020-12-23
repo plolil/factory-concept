@@ -37,7 +37,6 @@ int main(int argc, char ** argv) {
 					break;
 				case SDL_KEYDOWN:
 					TASKS_pushtask(test, hello, NULL, NULL, NULL, 0);
-					printf("test");
 					break;
 			}
 		}

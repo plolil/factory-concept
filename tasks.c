@@ -1,22 +1,27 @@
 #include "tasks.h"
 
 int facilitate(void* in) {
+	printf("facilitation time\n");
 	TASKS_taskstore * store = in;
 	store->ready += 1;
 	while (!store->exit) {
 		SDL_Delay(1000/30);
 		while (store->numtasks > 0) {
-			TASKS_poptask(store);
+			printf("waiting\n");
+			SDL_Delay(1);
 		}
+		printf("tick!\n");
 		store->safe = SDL_FALSE;
 		store->tick += 1;
 		store->numtasks = 0;
 		for (int i = 0; i < TASKLIMIT; i++) {
-			if (store->tasklist[i].tick <= store->tick) {
+			if (store->tasklist[i].tick <= store->tick && store->tasklist[i].valid) {
 				store->numtasks += 1;
 			}
 		}
+		store->safe = SDL_TRUE;
 	}
+	printf("exiting facilitator\n");
 	return 0;
 }
 
@@ -26,6 +31,7 @@ int handle(void* in) {
 	while (!store->exit) {
 		TASKS_poptask(store);
 	}
+	printf("exiting handler\n");
 	return 0;
 }
 
@@ -55,6 +61,7 @@ int TASKS_pushtask(TASKS_taskstore* store, TASKS_taskfunc func, void * target, v
 			store->tasklist[i].extraB = paramB;
 			store->tasklist[i].id = i;
 			store->tasklist[i].tick = store->tick + delay;
+			store->tasklist[i].inprogress = SDL_FALSE;
 			store->tasklist[i].valid = SDL_TRUE;
 			break;
 		}
@@ -67,13 +74,18 @@ int TASKS_pushtask(TASKS_taskstore* store, TASKS_taskfunc func, void * target, v
 
 int TASKS_poptask(TASKS_taskstore* store) {
 	if (store->safe) {
+//		printf("safe to pop");
 		if (store->numtasks > 0) {
+//			printf("available tasks");
 			for(int i = 0; i < TASKLIMIT; i++) {
 				if (store->tasklist[i].valid && !store->tasklist[i].inprogress && store->tasklist[i].tick <= store->tick) {
+					printf("popping task\n");
 					store->tasklist[i].inprogress = SDL_TRUE;
 					store->tasklist[i].funcptr(store->tasklist[i].affected, store->tasklist[i].extraA, store->tasklist[i].extraB);
 					store->tasklist[i].valid = SDL_FALSE;
-					store->numtasks -= 1;
+					store->numtasks = store->numtasks - 1;
+					printf("%d\n", store->numtasks);
+					break;
 				}
 				if (!store->safe || store->exit) {
 					break;
