@@ -8,6 +8,10 @@
 #define TASKLIMIT 1024
 #endif
 
+#ifndef TPS
+#define TPS 30
+#endif
+
 //type for storing the ID of a task
 typedef unsigned int TASKS_taskid;
 
@@ -58,7 +62,7 @@ int handle(void* in);
 //function to generate and allocate, and start the threads for a new taskstore.
 TASKS_taskstore *TASKS_newstore();
 //function to add a task
-int TASKS_pushtask(TASKS_taskstore* store, int * func, void * target, void * paramA, void * paramB, int delay);
+int TASKS_pushtask(TASKS_taskstore* store, TASKS_taskfunc func, void * target, void * paramA, void * paramB, int delay);
 //function to complete and remove a task
 int TASKS_poptask();
 //function to cleanly disable, deallocate, and delete a taskstore
