@@ -1,14 +1,37 @@
 #include "tasks.h"
 
+int facilitate(void* in) {
+	TASKS_taskstore * store = in;
+	store->ready += 1;
+	while (!store->exit) {
+	}
+	return 0;
+}
+
+int handle(void* in) {
+	TASKS_taskstore * store = in;
+	store->ready += 1;
+	while (!store->exit) {
+		
+	}
+	return 0;
+}
+
 TASKS_taskstore *TASKS_newstore() {
 	TASKS_taskstore *returner = SDL_calloc(1, sizeof(TASKS_taskstore));
 	returner->safe = SDL_TRUE;
 	returner->tick = 0;
 	returner->numtasks = 0;
+	returner->exit = SDL_FALSE;
+	returner->ready = 0;
+	returner->Facilitator = SDL_CreateThread(facilitate, "Task Facilitator", returner);
+	returner->Athread = SDL_CreateThread(handle, "Task Handler", returner);
+	returner->Bthread = SDL_CreateThread(handle, "Task Handler", returner);
+
 	return returner;
 }
 
-int TASKS_pushtask(TASKS_taskstore* store, int * func, void * target, int * paramA, int * paramB, int delay) {
+int TASKS_pushtask(TASKS_taskstore* store, int * func, void * target, void * paramA, void * paramB, int delay) {
 	SDL_bool pushed = SDL_FALSE;
 	for(int i = 0; i < TASKLIMIT; i++) {
 		if (store->tasklist[i].valid == SDL_FALSE) {
@@ -22,9 +45,20 @@ int TASKS_pushtask(TASKS_taskstore* store, int * func, void * target, int * para
 			store->tasklist[i].valid = SDL_TRUE;
 		}
 	}
+	if (delay = 0) {
+		store->numtasks += 1;
+	}
 	if (pushed) {return 0;} else {return -1;}
 }
 
 int TASKS_poptask(TASKS_taskstore* store) {
-
+	if (store->numtasks > 0) {
+		for(int i = 0; i < TASKLIMIT; i++) {
+			if (store->tasklist[i].valid && !store->tasklist[i].inprogress && store->tasklist[i].tick == store->tick) {
+				store->tasklist[i].inprogress = SDL_TRUE;
+				store->tasklist[i].funcptr(store->tasklist[i].affected, store->tasklist[i].extraA, store->tasklist[i].extraB);
+			}
+		}
+	}
+	return 0;
 }

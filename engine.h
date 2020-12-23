@@ -14,9 +14,6 @@ typedef struct engine {
 	SDL_Window * window;
 	//store the renderer to use
 	SDL_Renderer * renderer;
-	//hold threads. each runs tasks. this is mainly for long running (blocking) operations, but im gonna make everything do it.
-	SDL_Thread * Athread;
-	SDL_Thread * Bthread;
 	//a taskstore for anything non-critical to be run. see "tasks.h" for more.
 	TASKS_taskstore queue;
 } ENGINE_engine;
