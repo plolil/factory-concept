@@ -4,8 +4,8 @@
 #include <SDL2/SDL.h>
 
 //set a default max number of tasks per list. redefine before you include this to change it
-#ifndef TASKLIMIT
-#define TASKLIMIT 1024
+#ifndef TASKS_LIMIT
+#define TASKS_LIMIT 1024
 #endif
 
 #ifndef TPS
@@ -37,7 +37,7 @@ typedef struct task {
 
 typedef struct taskstore {
 	//store a list of tasks
-	TASKS_task tasklist[TASKLIMIT];
+	TASKS_task tasklist[TASKS_LIMIT];
 	//keep track of how many tasks there are. this will block if it gets filled.
 	int numtasks;
 	//used for timing. will not increment until all tasks for this tick are finished.

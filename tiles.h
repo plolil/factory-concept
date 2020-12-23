@@ -5,12 +5,16 @@
 
 #include "genericdefs.h"
 
-#ifndef TILE_CHUNK_SIZE
-#define TILE_CHUNK_SIZE 32
+#ifndef TILES_CHUNK_SIZE
+#define TILES_CHUNK_SIZE 32
 #endif
 
-#ifndef LOADED_MAP_SIZE
-#define LOADED_MAP_SIZE 512
+#ifndef TILES_LOADED_MAP_SIZE
+#define TILES_LOADED_MAP_SIZE 512
+#endif
+
+#ifndef TILES_TYPES
+#define TILES_TYPES 512
 #endif
 
 typedef unsigned int TILES_id;
@@ -20,21 +24,23 @@ typedef struct tile {
 } TILES_tile;
 
 typedef struct chunk {
-	TILES_tile tiles[TILE_CHUNK_SIZE][TILE_CHUNK_SIZE];
+	TILES_tile tiles[TILES_CHUNK_SIZE][TILES_CHUNK_SIZE];
 } TILES_chunk;
 
 typedef struct meta {
 	TILES_id id;
 	char filename[50];
-	SDL_RWops * image;
+	SDL_Surface * image;
 } TILES_meta;
 
 typedef struct tilebindings {
-	TILES_id id;
+	TILES_meta tiles[TILES_TYPES];
 } TILES_bindings;
 
 typedef struct map {
-	TILES_chunk chunks[LOADED_MAP_SIZE][LOADED_MAP_SIZE];
+	TILES_chunk chunks[TILES_LOADED_MAP_SIZE][TILES_LOADED_MAP_SIZE];
 } TILES_map;
 
 #endif
+
+TILES_tile
