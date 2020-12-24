@@ -64,7 +64,7 @@ TASKS_taskstore *TASKS_newstore();
 //function to add a task
 int TASKS_pushtask(TASKS_taskstore* store, TASKS_taskfunc func, void * target, void * paramA, void * paramB, int delay);
 //function to complete and remove a task
-int TASKS_poptask();
+int TASKS_poptask(TASKS_taskstore* store);
 //function to cleanly disable, deallocate, and delete a taskstore
 int TASKS_killstore(TASKS_taskstore* store);
 

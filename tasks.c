@@ -14,7 +14,7 @@ int facilitate(void* in) {
 		store->safe = SDL_FALSE;
 		store->tick += 1;
 		store->numtasks = 0;
-		for (int i = 0; i < TASKLIMIT; i++) {
+		for (int i = 0; i < TASKS_LIMIT; i++) {
 			if (store->tasklist[i].tick <= store->tick && store->tasklist[i].valid) {
 				store->numtasks += 1;
 			}
@@ -51,7 +51,7 @@ TASKS_taskstore *TASKS_newstore() {
 
 int TASKS_pushtask(TASKS_taskstore* store, TASKS_taskfunc func, void * target, void * paramA, void * paramB, int delay) {
 	SDL_bool pushed = SDL_FALSE;
-	for(int i = 0; i < TASKLIMIT; i++) {
+	for(int i = 0; i < TASKS_LIMIT; i++) {
 		printf("%d\n", i);
 		if (!store->tasklist[i].valid) {
 			pushed = SDL_TRUE;
@@ -77,7 +77,7 @@ int TASKS_poptask(TASKS_taskstore* store) {
 //		printf("safe to pop");
 		if (store->numtasks > 0) {
 //			printf("available tasks");
-			for(int i = 0; i < TASKLIMIT; i++) {
+			for(int i = 0; i < TASKS_LIMIT; i++) {
 				if (store->tasklist[i].valid && !store->tasklist[i].inprogress && store->tasklist[i].tick <= store->tick) {
 					printf("popping task\n");
 					store->tasklist[i].inprogress = SDL_TRUE;
