@@ -22,6 +22,7 @@ int facilitate(void* in) {
 		store->safe = SDL_TRUE;
 	}
 	printf("exiting facilitator\n");
+	store->ready -= 1;
 	return 0;
 }
 
@@ -32,6 +33,7 @@ int handle(void* in) {
 		TASKS_poptask(store);
 	}
 	printf("exiting handler\n");
+	store->ready -= 1;
 	return 0;
 }
 
@@ -42,6 +44,7 @@ TASKS_taskstore *TASKS_newstore() {
 	returner->numtasks = 0;
 	returner->exit = SDL_FALSE;
 	returner->ready = 0;
+	returner->popblock = SDL_FALSE;
 	returner->Facilitator = SDL_CreateThread(facilitate, "Task Facilitator", returner);
 	returner->Athread = SDL_CreateThread(handle, "Task Handler", returner);
 	returner->Bthread = SDL_CreateThread(handle, "Task Handler", returner);
@@ -75,22 +78,25 @@ int TASKS_pushtask(TASKS_taskstore* store, TASKS_taskfunc func, void * target, v
 int TASKS_poptask(TASKS_taskstore* store) {
 	if (store->safe) {
 //		printf("safe to pop");
-		if (store->numtasks > 0) {
+		if (store->numtasks > 0 && !store->popblock) {
 //			printf("available tasks");
+			store->popblock = SDL_TRUE;
 			for(int i = 0; i < TASKS_LIMIT; i++) {
-				if (store->tasklist[i].valid && !store->tasklist[i].inprogress && store->tasklist[i].tick <= store->tick) {
-					printf("popping task\n");
+				if (store->tasklist[i].valid && !store->tasklist[i].inprogress && store->tasklist[i].tick <= store->tick && store->numtasks - 1 >= 0) {
+					printf("popping task %d\n", i);
 					store->tasklist[i].inprogress = SDL_TRUE;
 					store->tasklist[i].funcptr(store->tasklist[i].affected, store->tasklist[i].extraA, store->tasklist[i].extraB);
 					store->tasklist[i].valid = SDL_FALSE;
+					store->tasklist[i].inprogress = SDL_FALSE;
 					store->numtasks = store->numtasks - 1;
 					printf("%d\n", store->numtasks);
 					break;
 				}
-				if (!store->safe || store->exit) {
+				if (!store->safe || store->exit || store->numtasks <= 0) {
 					break;
 				}
 			}
+			store->popblock = SDL_FALSE;
 		}
 	}
 	return 0;

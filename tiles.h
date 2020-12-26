@@ -10,7 +10,7 @@
 #endif
 
 #ifndef TILES_LOADED_MAP_SIZE
-#define TILES_LOADED_MAP_SIZE 512
+#define TILES_LOADED_MAP_SIZE 64
 #endif
 
 #ifndef TILES_TYPES
@@ -39,8 +39,9 @@ typedef struct tilebindings {
 
 typedef struct map {
 	TILES_chunk chunks[TILES_LOADED_MAP_SIZE][TILES_LOADED_MAP_SIZE];
+	TILES_bindings ids;
 } TILES_map;
 
 #endif
 
-//TILES_tile
+//TILES_map

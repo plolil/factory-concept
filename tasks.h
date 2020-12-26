@@ -53,6 +53,8 @@ typedef struct taskstore {
 	SDL_bool exit;
 	//each thread increments this when it's ready. when this is equal to 3, all threads are working. newstore will not return until all threads are ready.
 	unsigned char ready;
+	//used to make sure no task is run twice
+	SDL_bool popblock;
 } TASKS_taskstore;
 
 //declare the threads above.

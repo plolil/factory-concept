@@ -9,6 +9,7 @@ int hello(void*a, void*b, void*c) {
 
 //take CLI flags.
 int main(int argc, char ** argv) {
+	printf("%ld\n", sizeof(TILES_map));
 	//store whether we should exit
 	SDL_bool quit = SDL_FALSE;
 	//events (typing, window closed, clicks, etc.) get stored in this when its time to handle them

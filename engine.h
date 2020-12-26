@@ -8,6 +8,7 @@
 #include <SDL2/SDL_image.h>
 
 #include "tasks.h"
+#include "tiles.h"
 
 typedef struct engine {
 	//store the window to interact with
