@@ -43,4 +43,4 @@ typedef struct map {
 
 #endif
 
-TILES_tile
+//TILES_tile
