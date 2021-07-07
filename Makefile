@@ -1,13 +1,19 @@
 CC=gcc
-CFLAGS=-Wall -g -lSDL2 -lSDL2main -lm -lSDL2_ttf
-SRC=main.c\
-    tasks.c\
-    tiles.c
-OBJ=$(SRC:.c=.o)
+CFLAGS=-Wall -g -lm -Iinclude/ -fPIC
+ENGSRC != find | grep -P -o "^\\./enginecode/.+\\.cpp"
+ENGOBJ=$(ENGSRC:.cpp=.o)
 
-%.o: %.c $(DEPS)
+
+GAMESRC != find | grep -P -o "^\\./game/.+\\.cpp"
+GAMEOBJ=$(GAMESRC:.cpp=.o)
+
+%.o: %.cpp $(DEPS)
 	$(CC) -c -o obj/$@ $< $(CFLAGS)
 
-Factory: $(OBJ)
+engine: $(ENGOBJ)
 	cd obj;\
-	$(CC) -o ../$@ $^ $(CFLAGS)
+	$(CC) -o ../engine $^ $(CFLAGS)
+
+game: $(GAMEOBJ)
+	cd obj;\
+	$(CC) -shared -o ../lib.so $^ $(CFLAGS)

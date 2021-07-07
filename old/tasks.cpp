@@ -1,4 +1,4 @@
-#include "tasks.h"
+#include "tasks.hpp"
 
 int facilitate(void* in) {
 	printf("facilitation time\n");
@@ -83,6 +83,7 @@ int TASKS_poptask(TASKS_taskstore* store) {
 			store->popblock = SDL_TRUE;
 			for(int i = 0; i < TASKS_LIMIT; i++) {
 				if (store->tasklist[i].valid && !store->tasklist[i].inprogress && store->tasklist[i].tick <= store->tick && store->numtasks - 1 >= 0) {
+					store->popblock = SDL_FALSE;
 					printf("popping task %d\n", i);
 					store->tasklist[i].inprogress = SDL_TRUE;
 					store->tasklist[i].funcptr(store->tasklist[i].affected, store->tasklist[i].extraA, store->tasklist[i].extraB);
@@ -93,10 +94,10 @@ int TASKS_poptask(TASKS_taskstore* store) {
 					break;
 				}
 				if (!store->safe || store->exit || store->numtasks <= 0) {
+			store->popblock = SDL_FALSE;
 					break;
 				}
 			}
-			store->popblock = SDL_FALSE;
 		}
 	}
 	return 0;
