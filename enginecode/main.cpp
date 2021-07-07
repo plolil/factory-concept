@@ -3,9 +3,15 @@
 
 #include <main.hpp>
 
-int main(int argc, char ** argv) {
+#include "open.hpp"
+
+int main( int argc, char ** argv ) {
+
+  //initialize everything
   xmlParserCtxtPtr currentscene = xmlNewParserCtxt();
-  std::fstream CSfile("main.xml", std::fstream::in);
+  xmlDocPtr DP = xmlCtxtReadFile( currentscene, "main.xml", NULL, 0 );
+
+  std::cout << xmlNodeGetContent(xmlDocGetRootElement(DP)) << std::endl;
   
   return 0;
 }
