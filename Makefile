@@ -1,13 +1,14 @@
 CC=gcc
-CFLAGS=-Wall -g -lm -Iinclude/ -fPIC
-ENGSRC != find | grep -P -o "^\\./enginecode/.+\\.cpp"
+CFLAGS=-Wall -g -lm -Iinclude/ -I/usr/include/libxml2 -fPIC
+ENGSRC != find | grep -P -o ^\\./enginecode/\[^\\.\]+\\.cpp$
 ENGOBJ=$(ENGSRC:.cpp=.o)
 
 
-GAMESRC != find | grep -P -o "^\\./game/.+\\.cpp"
+GAMESRC != find | grep -P -o ^\\./game/\[^\\.\]+\\.cpp$
 GAMEOBJ=$(GAMESRC:.cpp=.o)
 
 %.o: %.cpp $(DEPS)
+	makedirs obj/$@
 	$(CC) -c -o obj/$@ $< $(CFLAGS)
 
 engine: $(ENGOBJ)
