@@ -1,17 +1,17 @@
 #include <libxml/parser.h>
 #include <fstream>
+#include <string>
+#include <cstring>
+#include <vector>
 
-#include <main.hpp>
-
-#include "open.hpp"
+#include <FindNode.hpp>
+#include "ClassLoader.hpp"
 
 int main( int argc, char ** argv ) {
 
-  //initialize everything
-  xmlParserCtxtPtr currentscene = xmlNewParserCtxt();
-  xmlDocPtr DP = xmlCtxtReadFile( currentscene, "main.xml", NULL, 0 );
-
-  std::cout << xmlNodeGetContent(xmlDocGetRootElement(DP)) << std::endl;
   
+  /*
+  std::cout << cstrify(FindNode::ByName(FindNode::ByID(Scene, "threeprinters"), "Component")->at(0)->children->content) << std::endl;
+  */
   return 0;
 }

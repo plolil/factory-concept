@@ -1,0 +1,18 @@
+<Game>
+  <Engine>
+  </Engine>
+  <Scene>
+    <Object
+	id="threeprinters"
+	name="The one with three printers">
+      <Component>HelloWorldPrinter</Component>
+      <Component>HelloWorldPrinter</Component>
+      <Component>HelloWorldPrinter</Component>
+    </Object>
+    <Object
+	id="oneprinter"
+	name="The one with one printer">
+      <Component>HelloWorldPrinter</Component>
+    </Object>
+  </Scene>
+</Game>

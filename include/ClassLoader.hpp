@@ -1,6 +1,9 @@
 #pragma once
 
 #include <main.hpp>
+
+#include <string>
+#include <memory>
 #include <dlfcn.h>
 
 namespace dloader {
@@ -13,26 +16,26 @@ namespace dloader {
 
     virtual void OpenLib() = 0;
 
-    virtual std::shared_ptr<T>	GetInstance() = 0;
+    virtual std::shared_ptr<T>	GetInstance(std::string Allocator) = 0;
     
     virtual void CloseLib() = 0;
     
   };
 
   template <class T>
-  class CompLoader : public IDLoader<T> {
+  class ClassLoader : public IDLoader<T> {
 
   private:
     void                *_handle;
     std::string		_pathToLib;
 
   public:
-    CompLoader( std::string const &pathToLib ) :
+    ClassLoader( std::string const &pathToLib ) :
        _handle(nullptr),
        _pathToLib(pathToLib)
     {}
 
-    ~CompLoader() = default;
+    ~ClassLoader() = default;
 
     void OpenLib() override {
       if ( !( _handle = dlopen( _pathToLib.c_str(), RTLD_NOW | RTLD_LAZY ) ) ) {

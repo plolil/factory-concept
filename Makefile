@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -g -lm -Iinclude/ -I/usr/include/libxml2 -fPIC
+CFLAGS=-Wall -g -lm -lxml2 -lstdc++ -ldl -Iinclude/ -I/usr/include/libxml2 -fPIC
 ENGSRC != find | grep -P -o ^\\./enginecode/\[^\\.\]+\\.cpp$
 ENGOBJ=$(ENGSRC:.cpp=.o)
 

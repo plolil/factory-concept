@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../include/main.hpp"
+#include <main.hpp>
 
 class HelloPrinter : engine::Component {
 public:
@@ -9,4 +9,4 @@ public:
   void Update(float deltaTime) {}
 };
 
-gencomponent(class HelloPrinter, HelloPrinter);
+gencomponent(class HelloPrinter, HelloWorldPrinter);
