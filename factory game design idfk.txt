@@ -1,0 +1,14 @@
+Factory game design(??)
+this is just probably gonna be me rambling on about the various ideas I have for the game tbh
+no clue how it'll be organised but w/e
+
+*Overall*
+Considering the concept, the scale of the game (I.e factory size/output) will probably be smaller than Factorio, no clue to what extent, that will probably come later.
+One thing that might be cool is to put a unique spin on the research concept, maybe with some type of experiments taking the form of more complex processes?
+The production itself will be inside machines, although the scale of production (I.e molecular, material, etc.) is something I'm not certain of, although it will most likely work the same from a technical pespective regardless.
+One thing that would be important is per-machine sizes, possibly taking the form of different sized hulls with different internal sizes.
+pretty much the basic idea is the same 3-way tradeoff of opus magnum has to be relevant to the factory on a larger scale (cost vs. size vs. speed)
+thats about it for now, I think I'd rather not have enemies in it since it seems like it would be kinda bloating the concept with unneccesary stuff, rather lean fully into the automation and design side of things with the added complexity and all
+
+*Technical*
+Constants (no clue what the proper name was) where you assume somethnig to be always true and know it's a problem elsewhere, might come in handy at some point
