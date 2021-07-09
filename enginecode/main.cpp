@@ -3,17 +3,20 @@
 #include <string>
 #include <cstring>
 #include <vector>
+#include <algorithm>
 
-#include <FindNode.hpp>
-#include <ClassLoader.hpp>
 #include <scene.hpp>
 
 int main( int argc, char ** argv ) {
 
+  // create a new scene, loaded from main.xml
   engine::Scene main("main.xml");
-  main.Objects->at(0).StartAll();
-  /*
-  std::cout << cstrify(FindNode::ByName(FindNode::ByID(Scene, "threeprinters"), "Component")->at(0)->children->content) << std::endl;
-  */
+
+  //loop through each object in the scene, run the start method on all components of each.
+  for_each(main.Objects->begin(), main.Objects->end(), [](engine::Object target) {
+      std::cout << std::endl << *target.name << std::endl;
+      target.StartAll();
+    });
+
   return 0;
 }

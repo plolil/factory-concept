@@ -2,6 +2,7 @@
 #include <libxml/parser.h>
 #include <vector>
 
+//grab the 'something="anotherthing"' attributes
 struct FindAttr {
   static xmlChar* ByName(xmlNodePtr node, const xmlChar* name) {
     return xmlGetProp(node, name);
@@ -12,6 +13,7 @@ struct FindAttr {
   }
 };
 
+//get nodes by properties. I don't feel like explaining this. pretty much i just loop through and grab what matches.
 struct FindNode {
   static std::vector<xmlNodePtr>* ByName(xmlNodePtr parent, const xmlChar* name) {
     xmlNodePtr cur = parent->children;

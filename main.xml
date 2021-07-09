@@ -3,16 +3,34 @@
   </Engine>
   <Scene>
     <Object
-	id="threeprinters"
-	name="The one with three printers">
-      <Component>HelloWorldPrinter</Component>
-      <Component>HelloWorldPrinter</Component>
-      <Component>HelloWorldPrinter</Component>
+	id="threetprinters"
+	name="The one with three time printers">
+      <Component>CurrentTimePrinter</Component>
+      <Component>CurrentTimePrinter</Component>
+      <Component>CurrentTimePrinter</Component>
     </Object>
     <Object
-	id="oneprinter"
-	name="The one with one printer">
-      <Component>HelloWorldPrinter</Component>
+	id="threehprinters"
+	name="The one with three hello printers">
+      <Component>HelloPrinter</Component>
+      <Component>HelloPrinter</Component>
+      <Component>HelloPrinter</Component>
+    </Object>
+    <Object
+	id="onehprinter"
+	name="The one with one hello printer">
+      <Component>HelloPrinter</Component>
+    </Object>
+    <Object
+	id="onetprinter"
+	name="The one with one time printer">
+      <Component>CurrentTimePrinter</Component>
+    </Object>
+    <Object
+	id="mixedprinter"
+	name="The one with one time printer and one hello printer">
+      <Component>CurrentTimePrinter</Component>
+      <Component>HelloPrinter</Component>
     </Object>
   </Scene>
 </Game>
