@@ -1,3 +1,4 @@
+#pragma once
 #include <libxml/parser.h>
 #include <vector>
 

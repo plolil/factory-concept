@@ -1,7 +1,6 @@
 #pragma once
 
-#include <main.hpp>
-
+#include <iostream>
 #include <string>
 #include <memory>
 #include <dlfcn.h>
@@ -39,29 +38,33 @@ namespace dloader {
 
     void OpenLib() override {
       if ( !( _handle = dlopen( _pathToLib.c_str(), RTLD_NOW | RTLD_LAZY ) ) ) {
-	      std::cerr << dlerror() << std::endl;
+	std::cerr << dlerror() << __LINE__ << std::endl;
       }
     }
 
     std::shared_ptr<T> GetInstance(std::string Allocator) override
     {
       using allocClass = T *(*)();
+      using deallocClass = void (*)(T*);
+      
+      std::string deallocator = Allocator + "dealloc";
 
       auto allocFunc = reinterpret_cast<allocClass>(dlsym(_handle, Allocator.c_str()));
+      auto deallocFunc = reinterpret_cast<deallocClass>(dlsym(_handle, deallocator.c_str()));
+      //std::cout << "(de)allocator function attempted" << std::endl;
 
-      if (!allocFunc) {
+      if (!allocFunc || !deallocFunc) {
 	CloseLib();
-	std::cerr << dlerror() << std::endl;
+	std::cerr << dlerror()  << __LINE__<< std::endl;
       }
 
-      return std::shared_ptr<T>(allocFunc(),
-				[](T *p){ delete p; });
+      return std::shared_ptr<T>(allocFunc(), deallocFunc);
     }
 
     void CloseLib() override
     {
       if (dlclose(_handle) != 0) {
-	std::cerr << dlerror() << std::endl;
+	std::cerr << dlerror() << __LINE__ << std::endl;
       }
     }
 

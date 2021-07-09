@@ -5,36 +5,40 @@
 #include <vector>
 #include <algorithm>
 
+#include <main.hpp>
 #include <FindNode.hpp>
-#include <ClassLoader.hpp>
 
 namespace engine{
 
-  class Scene {
-
-    Scene() {
+  struct Scene {
+    dloader::ClassLoader<Component>* Loader;
+    std::vector<Object>* Objects;
+    std::string from;
+    xmlNodePtr rootNode;
+    xmlNodePtr engineNode;
+    xmlNodePtr sceneNode;
+    
+    Scene(std::string file) {
+      from = file;
       //initialize everything
-      xmlDocPtr DP = xmlReadFile( "main.xml", NULL, 0 );
-      xmlNodePtr root = xmlDocGetRootElement(DP);
+      xmlDocPtr DP = xmlReadFile( file.c_str(), NULL, 0 );
+      rootNode = xmlDocGetRootElement(DP);
       
-      xmlNodePtr Engine = FindNode::ByName(root, "Engine")->at(0);
-      xmlNodePtr Scene  = FindNode::ByName(root, "Scene")->at(0);
+      engineNode = FindNode::ByName(rootNode, "Engine")->at(0);
+      sceneNode  = FindNode::ByName(rootNode, "Scene")->at(0);
       
-      std::vector<xmlNodePtr> *ObjectNodes = FindNode::ByName(Scene, "Object");
+      std::vector<xmlNodePtr> *ObjectNodes = FindNode::ByName(sceneNode, "Object");
       
-      std::vector<std::shared_ptr<Component>>* Components = new std::vector<std::shared_ptr<Component>>;
+      Loader = new dloader::ClassLoader<Component>("./lib.so");
+      Loader->OpenLib();
       
-      dloader::ClassLoader<Component>* Loader = new dloader::ClassLoader<Component>("./lib.so");
-      //  std::cout << "ayyy it loaded!" << std::endl;
+      Objects = new std::vector<Object>();
       
-      std::vector<engine::Object> *Objects = new std::vector<engine::Object>();
-      
-      for_each(ObjectNodes->begin(), ObjectNodes->end(), [Objects, Loader](xmlNodePtr node) {
+      for_each(ObjectNodes->begin(), ObjectNodes->end(), [this](xmlNodePtr node) {
 	  std::string cname(cstrify(node->name));
-	  std::cout << cname << std::endl;
-	  //auto Instance = Loader->GetInstance(cname);
-	  //Components->push_back(Instance);
+	  this->Objects->push_back(Object(node, this->Loader));
 	});
+      for_each(Objects->begin(), Objects->end(), [](Object target){std::cout << *target.name << std::endl<< *target.id << std::endl << std::endl;});
     }
   };
 }
