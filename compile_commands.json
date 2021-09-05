@@ -1,0 +1,19 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-g",
+      "-Iinclude/",
+      "-I/usr/include/libxml2",
+      "-fPIC",
+      "-o",
+      "obj/enginecode/main.o",
+      "enginecode/main.cpp"
+    ],
+    "directory": "/home/alyx/source/ours/factory",
+    "file": "/home/alyx/source/ours/factory/enginecode/main.cpp",
+    "output": "/home/alyx/source/ours/factory/obj/enginecode/main.o"
+  }
+]

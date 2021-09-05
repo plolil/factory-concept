@@ -18,3 +18,5 @@ engine: $(ENGOBJ)
 game: $(GAMEOBJ)
 	cd obj;\
 	$(CC) -shared -o ../lib.so $^ $(CFLAGS)
+
+all: engine game

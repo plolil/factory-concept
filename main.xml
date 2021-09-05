@@ -2,6 +2,7 @@
   <Engine>
   </Engine>
   <Scene>
+    <!--
     <Object
 	id="threetprinters"
 	name="The one with three time printers">
@@ -15,7 +16,7 @@
       <Component>HelloPrinter</Component>
       <Component>HelloPrinter</Component>
       <Component>HelloPrinter</Component>
-    </Object>
+    </Object>-->
     <Object
 	id="onehprinter"
 	name="The one with one hello printer">
@@ -31,6 +32,20 @@
 	name="The one with one time printer and one hello printer">
       <Component>CurrentTimePrinter</Component>
       <Component>HelloPrinter</Component>
+    </Object>
+    <Object
+	id="apideps"
+	name="This has the dependencies of the api tests">
+      <Component>DataHolder</Component>
+      <Component>MessageSender</Component>
+    </Object>
+    <Object
+	id="apitest"
+	name="This has the main bit of the api tests">
+      <Component>DataHolder</Component>
+      <Component>DataFetcher</Component>
+      <Component>ExternalDataFetcher</Component>
+      <Component>MessageGetter</Component>
     </Object>
   </Scene>
 </Game>

@@ -5,7 +5,7 @@
 #include <vector>
 #include <algorithm>
 
-#include <scene.hpp>
+#include <engine/scene.hpp>
 
 int main( int argc, char ** argv ) {
 

@@ -1,11 +1,14 @@
 #pragma once
 
-#include <memory>
-#include <vector>
+#include <string>
+#include <api/api.hpp>
 
 namespace engine {
   class Component {
   public:
+    //the internal api, unique to each component.
+    engine::api::api* api;
+    
     //the name used to load the component
     std::string* name;
     

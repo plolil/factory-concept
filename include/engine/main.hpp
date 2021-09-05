@@ -5,14 +5,16 @@
 #include <memory>
 
 namespace engine {
-class Component;
-class Object;
+  class Component;
+  class Object;
+  struct Scene;
 }
 
 typedef std::vector<std::shared_ptr<engine::Component>> complist;
 
 #include "FindNode.hpp"
-#include "component.hpp"
-#include "object.hpp"
+#include "engine/component.hpp"
+#include "engine/object.hpp"
+#include "engine/scene.hpp"
 
 #include <iostream>

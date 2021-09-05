@@ -7,10 +7,10 @@
 #include <chrono>
 
 //the final keyword stops some compiler warnings. not necessary though.
-class HelloPrinter final : engine::Component {
+class MessageGetter final : engine::Component {
 public:
-  HelloPrinter() {}
-  ~HelloPrinter() {}
+  MessageGetter() {}
+  ~MessageGetter() {}
   
   //the method called on scene initialization
   void Start() {
@@ -21,5 +21,5 @@ public:
   void Update(float deltaTime) {}
 };
 
-//generate allocator functions. the name to be used in the XML is "HelloPrinter"
-gencomponent(class HelloPrinter, HelloPrinter);
+//generate allocator functions. the name to be used in the XML is "MessageGetter"
+gencomponent(class MessageGetter, MessageGetter);

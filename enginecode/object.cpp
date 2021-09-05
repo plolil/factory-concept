@@ -1,6 +1,4 @@
-#pragma once
-
-#include <main.hpp>
+#include <engine/main.hpp>
 
 #include <string>
 #include <vector>
@@ -11,14 +9,7 @@
 #include <ClassLoader.hpp>
 
 namespace engine {
-  class Object {
-  public:
-    dloader::ClassLoader<Component>* Loader;
-    std::string *name;
-    std::string *id;
-    complist *Components;
-    
-    Object(xmlNodePtr node,
+  Object::Object(xmlNodePtr node,
 	   dloader::ClassLoader<Component>* LoaderPtr) {
       //initialize all our info
       name = new std::string(cstrify(xmlGetProp(node, xmlify("name"))));
@@ -38,11 +29,11 @@ namespace engine {
 	});
     }
 
-    //simple member function to run the start method of all components
-    void StartAll() {
-      for_each(Components->begin(), Components->end(), [](std::shared_ptr<Component> c){
-	  c->Start();
-	});
-    }
-  };
+  //simple member function to run the start method of all components
+  void Object::StartAll() {
+    for_each(Components->begin(), Components->end(), [](std::shared_ptr<Component> c){
+	c->Start();
+      });
+  }
 }
+
